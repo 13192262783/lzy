@@ -1,0 +1,29 @@
+在plsql工具中执行以下语句，可建立Oracle表空间。
+
+ 
+
+/*分为四步 */
+/*第1步：创建临时表空间  */
+create temporary tablespace yuhang_temp 
+tempfile 'D:\oracledata\yuhang_temp.dbf' 
+size 50m  
+autoextend on  
+next 50m maxsize 20480m  
+extent management local;  
+ 
+/*第2步：创建数据表空间  */
+create tablespace yuhang_data  
+logging  
+datafile 'D:\oracledata\yuhang_data.dbf' 
+size 50m  
+autoextend on  
+next 50m maxsize 20480m  
+extent management local;  
+ 
+/*第3步：创建用户并指定表空间  */
+create user yuhang identified by yuhang  
+default tablespace yuhang_data  
+temporary tablespace yuhang_temp;  
+ 
+/*第4步：给用户授予权限  */
+grant connect,resource,dba to yuhang;
